@@ -1,0 +1,11 @@
+﻿@{ 
+    ViewData["Title"] = "Chart";
+}
+
+@section styles{
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" />
+}
+
+<h2>@ViewData["Tiltle"]</h2>
+
+@Html.Raw(@ViewData["ResultFromNode"])
