@@ -28,7 +28,7 @@ module.exports = (env) => {
 				{ test: /\.css$/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize'] },
                 //{ test: /\.less/, include: /ClientApp/, loader: 'raw-loader!less-loader' },
 				{ test: /\.scss$/, use: ['to-string-loader', 'css-loader', 'sass-loader'] },
-                { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
+				{ test: /\.(png|jpg|jpeg|gif|woff|woff2|eot|ttf|svg)$/, use: 'url-loader?limit=25000' }
             ]
         },
         plugins: [
