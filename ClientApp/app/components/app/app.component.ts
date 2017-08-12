@@ -1,8 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs/Observable';
+
+import { AppState } from './../../app-store';
+import { AuthState } from '../../auth-store/auth.store';
+import { AccountService } from '../../services/account.service';
 import * as $ from 'jquery';
 
-//declare var jquery: any;
-//declare var $: any;
+
 
 
 
@@ -11,9 +17,52 @@ import * as $ from 'jquery';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy{
+    public isCollapsed: boolean = true;
+    public languages = [
+        { locale: 'en', description: 'English' },
+        { locale: 'fr', description: 'French' }
+    ];
+    public currentLanguage = this.languages[0];
+
+    public authState$: Observable<AuthState>;
+
+    constructor(
+        public store: Store<AppState>,
+        public translation: TranslateService,
+        public accountService: AccountService
+    ) {
+        translation.getTranslation(this.currentLanguage.locale);
+    }
+
 
     public ngOnInit(): void {
+        this.initNav();
+        this.authState$ = this.store.select(state => state.auth);
+        
+    }
+
+    public toggleNav() {
+        this.isCollapsed = !this.isCollapsed;
+    }
+
+    public setLang(lang: any) {
+        this.currentLanguage = lang;
+        this.translation.use(lang.locale);
+    }
+
+    onButtonClick(lang?: any) {
+        console.log(this.currentLanguage);
+        this.translation.use(lang.locale);
+    }
+
+    public ngOnDestroy(): void {
+        
+    }
+   
+
+
+    private initNav():void{
         $.navigation = $('nav > ul.nav');
 
         $.panelIconOpened = 'icon-arrow-up';
@@ -78,7 +127,7 @@ export class AppComponent {
 
         /* ---------- Main Menu Open/Close, Min/Full ---------- */
         $('.navbar-toggler').click(function () {
-           
+
 
             if ($(this).hasClass('sidebar-toggler')) {
                 console.log('clicking');
@@ -135,5 +184,4 @@ export class AppComponent {
 
         });
     }
-
 }

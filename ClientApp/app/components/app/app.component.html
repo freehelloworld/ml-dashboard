@@ -20,13 +20,27 @@
             <li class="nav-item d-md-down-none">
                 <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
             </li>
-            <li class="nav-item d-md-down-none">
-                <a class="nav-link" href="#"><i class="icon-list"></i></a>
+            <li class="nav-item d-md-down-none" *ngIf="!(authState$ | async)?.loggedIn">
+                <a class="nav-link" routerLinkActive="active" routerLink="/register">
+                    <i class="fa fa-user"></i> {{'APP_NAV_REGISTER' | translate}}
+                </a>
             </li>
-            <li class="nav-item d-md-down-none">
-                <a class="nav-link" href="#"><i class="icon-location-pin"></i></a>
+            <li class="nav-item d-md-down-none" *ngIf="!(authState$ | async)?.loggedIn">
+                <a class="nav-link" routerLinkActive="active" routerLink="/login">
+                    <i class="fa fa-sign-in"></i>{{'APP_NAV_LOGIN' | translate}}
+                </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item d-md-down-none" *ngIf="(authState$ | async)?.loggedIn && (authState$ | async)?.profile.role.indexOf('Admin') > -1">
+                <a class="nav-link" routerLinkActive="active" routerLink="admin">
+                    <i class="fa fa-gear"></i> {{'APP_NAV_ADMIN' | translate}}
+                </a>
+            </li>
+            <li class="nav-item d-md-down-none" *ngIf="(authState$ | async)?.loggedIn">
+                <a class="nav-link" (click)="accountService.logout()" routerLinkActive="active" href="javascript:void(null);">
+                    <i class="fa fa-sign-out"></i> {{'APP_NAV_LOGOUT' | translate}}
+                </a>
+            </li>
+            <!--<li class="nav-item dropdown">
 
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-header text-center">
@@ -47,10 +61,10 @@
                     <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a>
                     <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
                 </div>
-            </li>
-            <li class="nav-item d-md-down-none">
+            </li>-->
+            <!--<li class="nav-item d-md-down-none">
                 <a class="nav-link navbar-toggler aside-menu-toggler" href="#">☰</a>
-            </li>
+            </li>-->
         </ul>
     </header>
 
@@ -136,8 +150,35 @@
         </div>
         <!-- Main content -->
         <main class="main">
-            <router-outlet></router-outlet>
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item">
+                    <a href="#">Admin</a>
+                </li>
+                <li class="breadcrumb-item active">Dashboard</li>
+                <!-- Breadcrumb Menu-->
+                <li class="breadcrumb-menu d-md-down-none">
+                    <div class="btn-group" role="group" aria-label="Button group">
+                        <a class="btn" href="#"><i class="icon-speech"></i></a>
+                        <a class="btn" href="./"><i class="icon-graph"></i> &nbsp;Dashboard</a>
+                        <a class="btn" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
+                    </div>
+                </li>
+            </ol>
+            <div class="container-fluid">
+                <div class="animated fadeIn">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
         </main>
 
     </div>
+
+    <footer class="app-footer">
+        <a href="http://coreui.io">CoreUI</a> © 2017 creativeLabs.
+        <span class="float-right">
+            Powered by <a href="http://coreui.io">CoreUI</a>
+        </span>
+    </footer>
 </div>
