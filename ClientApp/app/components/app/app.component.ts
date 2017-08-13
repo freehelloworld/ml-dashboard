@@ -130,7 +130,6 @@ export class AppComponent implements OnInit, OnDestroy{
 
 
             if ($(this).hasClass('sidebar-toggler')) {
-                console.log('clicking');
                 $('#body').toggleClass('sidebar-hidden');
                 resizeBroadcast();
             }

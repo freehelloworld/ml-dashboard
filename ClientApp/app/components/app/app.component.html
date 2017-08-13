@@ -13,29 +13,38 @@
                 <a class="nav-link" href="#">Users</a>
             </li>
             <li class="nav-item px-3">
-                <a class="nav-link" href="#">Settings</a>
+                <select [(ngModel)]="currentLanguage" class="ui fluid search selection dropdown" (ngModelChange)="onButtonClick($event)">
+                    <option *ngFor="let lang of languages" [ngValue]="lang">
+                        {{lang.description}}
+                    </option>
+                </select>
             </li>
         </ul>
         <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item d-md-down-none">
+            <li class="nav-item px-3">
                 <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
             </li>
-            <li class="nav-item d-md-down-none" *ngIf="!(authState$ | async)?.loggedIn">
+            <li class="nav-item px-3" *ngIf="(authState$ | async)?.loggedIn">
+                <a class="nav-link" routerLinkActive="active" routerLink="/login">
+                    <i class="fa fa-user"></i> {{(authState$ | async)?.profile.name}}
+                </a>
+            </li>
+            <li class="nav-item px-3" *ngIf="!(authState$ | async)?.loggedIn">
                 <a class="nav-link" routerLinkActive="active" routerLink="/register">
                     <i class="fa fa-user"></i> {{'APP_NAV_REGISTER' | translate}}
                 </a>
             </li>
-            <li class="nav-item d-md-down-none" *ngIf="!(authState$ | async)?.loggedIn">
+            <li class="nav-item px-3" *ngIf="!(authState$ | async)?.loggedIn">
                 <a class="nav-link" routerLinkActive="active" routerLink="/login">
                     <i class="fa fa-sign-in"></i>{{'APP_NAV_LOGIN' | translate}}
                 </a>
             </li>
-            <li class="nav-item d-md-down-none" *ngIf="(authState$ | async)?.loggedIn && (authState$ | async)?.profile.role.indexOf('Admin') > -1">
+            <li class="nav-item px-3" *ngIf="(authState$ | async)?.loggedIn && (authState$ | async)?.profile.role.indexOf('Admin') > -1">
                 <a class="nav-link" routerLinkActive="active" routerLink="admin">
                     <i class="fa fa-gear"></i> {{'APP_NAV_ADMIN' | translate}}
                 </a>
             </li>
-            <li class="nav-item d-md-down-none" *ngIf="(authState$ | async)?.loggedIn">
+            <li class="nav-item px-3" *ngIf="(authState$ | async)?.loggedIn">
                 <a class="nav-link" (click)="accountService.logout()" routerLinkActive="active" href="javascript:void(null);">
                     <i class="fa fa-sign-out"></i> {{'APP_NAV_LOGOUT' | translate}}
                 </a>
@@ -108,13 +117,13 @@
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">
-                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> Icons</a>
+                        <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-star"></i> Shop</a>
                         <ul class="nav-dropdown-items">
                             <li class="nav-item">
-                                <a class="nav-link" href="icons-font-awesome.html"><i class="icon-star"></i> Font Awesome</a>
+                                <a class="nav-link" routerLink="/counter"><i class="icon-star"></i>Awesome</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="icons-simple-line-icons.html"><i class="icon-star"></i> Simple Line Icons</a>
+                                <a class="nav-link" routerLink="/fetch-data"><i class="icon-star"></i> Simple Line Icons</a>
                             </li>
                         </ul>
                     </li>
