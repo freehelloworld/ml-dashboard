@@ -18,6 +18,7 @@ import { FormControlService } from './shared/forms/form-control.service';
 import { ProductListComponent } from './components/shop/product.list.component';
 import { ProductFilterPipe } from './filter/shop/product.filter.pipe';
 import { StarComponent } from './components/shop/star.component'
+import { ProductDetailComponent } from './components/shop/product.detail.component'
 
 export const sharedConfig: NgModule = {
     bootstrap: [ AppComponent ],
@@ -35,7 +36,8 @@ export const sharedConfig: NgModule = {
 		ErrorSummaryComponent,
 		ProductListComponent,
 		ProductFilterPipe,
-		StarComponent
+        StarComponent,
+        ProductDetailComponent
     ],
 	imports: [
         RouterModule.forRoot([
@@ -46,7 +48,8 @@ export const sharedConfig: NgModule = {
 			{ path: 'register', component: RegisterComponent },
 			{ path: 'registerconfirmation', component: RegisterConfirmationComponent },
 			{ path: 'login', component: LoginComponent },
-			{ path: 'productlist', component: ProductListComponent },
+            { path: 'productlist', component: ProductListComponent },
+            { path: 'productlist/product/:_id', component: ProductDetailComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

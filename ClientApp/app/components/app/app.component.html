@@ -13,7 +13,7 @@
                 <a class="nav-link" href="#">Users</a>
             </li>
             <li class="nav-item px-3">
-                <select [(ngModel)]="currentLanguage" class="ui fluid search selection dropdown" (ngModelChange)="onButtonClick($event)">
+                <select [(ngModel)]="currentLanguage" class="ui fluid search selection dropdown" (ngModelChange)="onLangSelect($event)">
                     <option *ngFor="let lang of languages" [ngValue]="lang">
                         {{lang.description}}
                     </option>

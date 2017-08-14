@@ -51,8 +51,7 @@ export class AppComponent implements OnInit, OnDestroy{
         this.translation.use(lang.locale);
     }
 
-    onButtonClick(lang?: any) {
-        console.log(this.currentLanguage);
+    public onLangSelect(lang?: any) {
         this.translation.use(lang.locale);
     }
 
