@@ -15,6 +15,9 @@ import { DynamicFormControlComponent } from './shared/forms/dynamic-form-control
 import { ErrorMessageComponent } from './shared/forms/error-message.component';
 import { ErrorSummaryComponent } from './shared/forms/error-summary.component';
 import { FormControlService } from './shared/forms/form-control.service';
+import { ProductListComponent } from './components/shop/product.list.component';
+import { ProductFilterPipe } from './filter/shop/product.filter.pipe';
+import { StarComponent } from './components/shop/star.component'
 
 export const sharedConfig: NgModule = {
     bootstrap: [ AppComponent ],
@@ -29,7 +32,10 @@ export const sharedConfig: NgModule = {
 		DynamicFormComponent,
 		DynamicFormControlComponent,
 		ErrorMessageComponent,
-		ErrorSummaryComponent
+		ErrorSummaryComponent,
+		ProductListComponent,
+		ProductFilterPipe,
+		StarComponent
     ],
 	imports: [
         RouterModule.forRoot([
@@ -40,6 +46,7 @@ export const sharedConfig: NgModule = {
 			{ path: 'register', component: RegisterComponent },
 			{ path: 'registerconfirmation', component: RegisterConfirmationComponent },
 			{ path: 'login', component: LoginComponent },
+			{ path: 'productlist', component: ProductListComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

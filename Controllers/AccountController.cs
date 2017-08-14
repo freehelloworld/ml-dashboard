@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
-namespace profile.Server.Controllers.api
+namespace profile.Controllers
 {
 	[Authorize]
 	[Route("api/[controller]")]

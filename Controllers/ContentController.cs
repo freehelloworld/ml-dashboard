@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using profile.Server.ViewModels;
+using profile.Server;
 
-namespace profile.Server.Controllers.api
+namespace profile.Controllers
 {
 	[Route("api/[controller]")]
 	[AllowAnonymous]
