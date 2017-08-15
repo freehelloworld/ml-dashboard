@@ -30,6 +30,7 @@ import { AuthTokenService } from './auth-token/auth-token.service';
 import { ProductService } from './services/shop/product.service';
 
 
+
 import { LoggedInActions } from './auth-store/logged-in.actions';
 import { AuthTokenActions } from './auth-token/auth-token.actions';
 import { AuthReadyActions } from './auth-store/auth-ready.actions';
@@ -69,6 +70,8 @@ import { ProfileActions } from './profile/profile.actions';
 		, AuthReadyActions
 		, ProfileActions
 		, ProductService
+
+		
     ]
 })
 export class AppModule {

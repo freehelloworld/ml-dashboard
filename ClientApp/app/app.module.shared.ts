@@ -19,6 +19,7 @@ import { ProductListComponent } from './components/shop/product.list.component';
 import { ProductFilterPipe } from './filter/shop/product.filter.pipe';
 import { StarComponent } from './components/shop/star.component'
 import { ProductDetailComponent } from './components/shop/product.detail.component'
+import { ProductEditComponent } from './components/shop/product.edit.component'
 
 export const sharedConfig: NgModule = {
     bootstrap: [ AppComponent ],
@@ -37,7 +38,8 @@ export const sharedConfig: NgModule = {
 		ProductListComponent,
 		ProductFilterPipe,
         StarComponent,
-        ProductDetailComponent
+		ProductDetailComponent,
+		ProductEditComponent
     ],
 	imports: [
         RouterModule.forRoot([
@@ -49,7 +51,8 @@ export const sharedConfig: NgModule = {
 			{ path: 'registerconfirmation', component: RegisterConfirmationComponent },
 			{ path: 'login', component: LoginComponent },
             { path: 'productlist', component: ProductListComponent },
-            { path: 'productlist/product/:_id', component: ProductDetailComponent },
+			{ path: 'productlist/product/:_id', component: ProductDetailComponent },
+			{ path: 'productlist/productEdit/:_id', component: ProductEditComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]
