@@ -20,6 +20,7 @@ import { ProductFilterPipe } from './filter/shop/product.filter.pipe';
 import { StarComponent } from './components/shop/star.component'
 import { ProductDetailComponent } from './components/shop/product.detail.component'
 import { ProductEditComponent } from './components/shop/product.edit.component'
+import { SocialLoginComponent } from './components/login/sociallogin/social.login.component'
 
 export const sharedConfig: NgModule = {
     bootstrap: [ AppComponent ],
@@ -39,7 +40,8 @@ export const sharedConfig: NgModule = {
 		ProductFilterPipe,
         StarComponent,
 		ProductDetailComponent,
-		ProductEditComponent
+        ProductEditComponent,
+        SocialLoginComponent
     ],
 	imports: [
         RouterModule.forRoot([

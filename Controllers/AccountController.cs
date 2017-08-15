@@ -2,7 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using profile.Server.Entities;
 using profile.Server.Extensions;
-//using profile.Server.Services.Abstract;
+using profile.Server.Services.Abstract;
 using profile.Server.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,57 +18,57 @@ namespace profile.Controllers
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly SignInManager<ApplicationUser> _signInManager;
-		//private readonly IEmailSender _emailSender;
-		//private readonly ISmsSender _smsSender;
-		private readonly ILogger _logger;
+        private readonly IEmailSender _emailSender;
+        private readonly ISmsSender _smsSender;
+        private readonly ILogger _logger;
 
 		public AccountController(
 			UserManager<ApplicationUser> userManager,
 			SignInManager<ApplicationUser> signInManager,
-			//IEmailSender emailSender,
-			//ISmsSender smsSender,
-			ILoggerFactory loggerFactory)
+            IEmailSender emailSender,
+            ISmsSender smsSender,
+            ILoggerFactory loggerFactory)
 		{
 			_userManager = userManager;
 			_signInManager = signInManager;
-			//_emailSender = emailSender;
-			//_smsSender = smsSender;
-			_logger = loggerFactory.CreateLogger<AccountController>();
+            _emailSender = emailSender;
+            _smsSender = smsSender;
+            _logger = loggerFactory.CreateLogger<AccountController>();
 		}
 
 
-		//[HttpPost("login")]
-		//[AllowAnonymous]
-		//public async Task<IActionResult> Login([FromBody]LoginViewModel model)
-		//{
-		//	// This doesn't count login failures towards account lockout
-		//	// To enable password failures to trigger account lockout, set lockoutOnFailure: true
-		//	var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-		//	if (result.Succeeded)
-		//	{
-		//		var user = await _userManager.FindByEmailAsync(model.Email);
-		//		var roles = await _userManager.GetRolesAsync(user);
-		//		_logger.LogInformation(1, "User logged in.");
-		//		return AppUtils.SignIn(user, roles);
-		//	}
-		//	if (result.RequiresTwoFactor)
-		//	{
-		//		return RedirectToAction(nameof(SendCode), new { RememberMe = model.RememberMe });
-		//	}
-		//	if (result.IsLockedOut)
-		//	{
-		//		_logger.LogWarning(2, "User account locked out.");
-		//		return BadRequest("Lockout");
-		//	}
-		//	else
-		//	{
-		//		ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-		//		return BadRequest(ModelState.GetModelErrors());
-		//	}
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody]LoginViewModel model)
+        {
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                var roles = await _userManager.GetRolesAsync(user);
+                _logger.LogInformation(1, "User logged in.");
+                return AppUtils.SignIn(user, roles);
+            }
+            if (result.RequiresTwoFactor)
+            {
+                return RedirectToAction(nameof(SendCode), new { RememberMe = model.RememberMe });
+            }
+            if (result.IsLockedOut)
+            {
+                _logger.LogWarning(2, "User account locked out.");
+                return BadRequest("Lockout");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return BadRequest(ModelState.GetModelErrors());
+            }
 
-		//}
+        }
 
-		[HttpPost("register")]
+        [HttpPost("register")]
 		[AllowAnonymous]
 		public async Task<IActionResult> Register([FromBody]RegisterViewModel model, string returnUrl = null)
 		{
@@ -102,15 +102,8 @@ namespace profile.Controllers
 			return BadRequest(ModelState.GetModelErrors());
 		}
 
-		private void AddErrors(IdentityResult result)
-		{
-			foreach (var error in result.Errors)
-			{
-				ModelState.AddModelError(string.Empty, error.Description);
-			}
-		}
 
-		/*
+		
 
 		[HttpPost("logout")]
 		public async Task<IActionResult> LogOff()
@@ -375,7 +368,7 @@ namespace profile.Controllers
 			return RedirectToAction("Index", "Home", new { externalLoginStatus = (int)status });
 		}
 	#endregion
-	*/
+	
 
 	}
 }
