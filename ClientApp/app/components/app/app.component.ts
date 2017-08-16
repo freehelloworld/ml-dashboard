@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
 
+import { AuthTokenService } from '../../auth-token/auth-token.service';
 import { AppState } from './../../app-store';
 import { AuthState } from '../../auth-store/auth.store';
 import { AccountService } from '../../services/account.service';
@@ -27,7 +28,8 @@ export class AppComponent implements OnInit, OnDestroy{
 
     public authState$: Observable<AuthState>;
 
-    constructor(
+	constructor(
+		public tokens: AuthTokenService,
         public store: Store<AppState>,
         public translation: TranslateService,
         public accountService: AccountService
@@ -56,7 +58,7 @@ export class AppComponent implements OnInit, OnDestroy{
     }
 
     public ngOnDestroy(): void {
-        
+		this.tokens.unsubscribeRefresh();
     }
    
 
