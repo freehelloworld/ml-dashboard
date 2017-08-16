@@ -26,12 +26,8 @@ export class AccountService {
 	) { }
 
 	public register(data: RegisterModel): Observable<Response> {
-		console.log('account service:');
-		console.log(data);
-		return this.http.post('api/account/register', data);
-			//.catch(
-			//	res => Observable.throw(res.json())
-			//);
+		return this.http.post('api/account/register', data)
+			.catch(	res => Observable.throw(res.json()));
 	}
 
 	public login(user: LoginModel) {

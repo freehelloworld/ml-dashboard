@@ -35,13 +35,15 @@ export class AppComponent implements OnInit, OnDestroy{
         public accountService: AccountService
     ) {
         translation.getTranslation(this.currentLanguage.locale);
+
+        translation.use(this.currentLanguage.locale);
     }
 
 
     public ngOnInit(): void {
-        this.initNav();
         this.authState$ = this.store.select(state => state.auth);
-        
+
+        this.initNav();
     }
 
     public toggleNav() {
@@ -54,6 +56,7 @@ export class AppComponent implements OnInit, OnDestroy{
     }
 
     public onLangSelect(lang?: any) {
+        this.currentLanguage = lang;
         this.translation.use(lang.locale);
     }
 
