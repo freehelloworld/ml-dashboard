@@ -41,6 +41,14 @@ export class AppComponent implements OnInit, OnDestroy{
 
 
     public ngOnInit(): void {
+        // This starts up the token refresh preocess for the app
+        this.tokens.startupTokenRefresh()
+            .subscribe(
+            // tslint:disable-next-line:no-console
+            () => console.info('Startup success'),
+            error => console.warn(error)
+            );
+
         this.authState$ = this.store.select(state => state.auth);
 
         this.initNav();
